@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+public class PhoneBook {
+    private Map<String, ArrayList<String>> map = new HashMap<>();
+//если имени контакта нет в списке, то создаем новый контакт. Если есть - добавляем телефон
+    void addContact(String name, String num){
+        if (map.containsKey(name)) {
+            map.get(name).add(num);
+        } else {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(num);
+            map.put(name, list);
+        }
+    }    
+//вывод книги         
+   String printBook(){
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Map.Entry<String, ArrayList<String>> entry: map.entrySet()){
+                String name = entry.getKey();
+                String phones = "";
+                for(var el: entry.getValue()){
+                     phones = phones + el + "; ";
+                 }
+                stringBuilder.append(name);
+                stringBuilder.append(": ");
+                stringBuilder.append(phones);
+                //stringBuilder.append();
+                stringBuilder.append("\n");
+            }
+        return stringBuilder.toString();
+     }
+
+     String findByName(String userName){
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 1;
+        for (Map.Entry<String, ArrayList<String>> entry: map.entrySet()){
+            String name = entry.getKey();
+            String phones = "";
+            if (name.equals(userName)){
+                stringBuilder.append(count++);
+                stringBuilder.append(". ");
+                stringBuilder.append(name);
+                stringBuilder.append(": ");
+                for(var el: entry.getValue()){
+                    phones = phones + el + "; ";
+                }
+                stringBuilder.append(phones);
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+}    
+// public static void main(String[] args){        
+// PhoneBook book = new PhoneBook();
+//         addContact("Ivanov", "12345", book);
+
+// }
+// }
+
+
